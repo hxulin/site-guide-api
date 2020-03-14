@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql:///site_guide?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
+      username: root
+      password: 12345678
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+app:
+  config:
+    # AES加密客户端签名信息密钥: 16位字符
+    signature-aes-key: 9h15t21ngWZ9287V
+    # AES加密客户端签名信息初始向量, 增强加密算法强度: 16位字符
+    signature-aes-iv: vd2J9k857YdJG8HI
