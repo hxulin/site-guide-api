@@ -64,4 +64,10 @@ public class User extends BaseEntity {
         this.nickname = nickname;
         this.authCode = authCode;
     }
+
+    public User(String nickname, String authCode, Integer status) {
+        this.nickname = nickname;
+        this.authCode = authCode;
+        this.status = status;
+    }
 }

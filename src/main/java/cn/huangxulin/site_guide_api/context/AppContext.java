@@ -31,6 +31,10 @@ public class AppContext implements ApplicationContextAware {
         return AppContext.getBean(AppConfig.class);
     }
 
+    public static TokenKit getTokenKit() {
+        return AppContext.getBean(TokenKit.class);
+    }
+
     /**
      * 获取当前请求的 Request 对象
      */

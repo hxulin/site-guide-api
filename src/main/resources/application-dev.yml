@@ -9,7 +9,17 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 app:
   config:
-    # AES加密客户端签名信息密钥: 16位字符
+    # 客户端签名的AES加密密钥: 16位字符
     signature-aes-key: 9h15t21ngWZ9287V
-    # AES加密客户端签名信息初始向量, 增强加密算法强度: 16位字符
+    # 客户端签名的AES初始向量, 增强加密算法强度: 16位字符
     signature-aes-iv: vd2J9k857YdJG8HI
+    # 管理员组用户名
+    admin-group: admin
+    # 用户组用户名
+    user-group: user
+    # Token密钥, 更换后所有的之前授权登录的Token信息将失效
+    token-secret-key: token-secret-key
+    # Token AES加密密钥
+    token-aes-key: 9h15t21ngWZ9287V
+    # Token AES加密初始向量
+    token-aes-iv: vd2J9k857YdJG8HI

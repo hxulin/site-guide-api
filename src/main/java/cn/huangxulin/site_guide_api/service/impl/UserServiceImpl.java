@@ -1,12 +1,15 @@
 package cn.huangxulin.site_guide_api.service.impl;
 
+import cn.huangxulin.site_guide_api.bean.Const;
 import cn.huangxulin.site_guide_api.bean.Status;
+import cn.huangxulin.site_guide_api.config.AppConfig;
 import cn.huangxulin.site_guide_api.context.AppContext;
 import cn.huangxulin.site_guide_api.entity.User;
 import cn.huangxulin.site_guide_api.exception.BusinessExceptionAware;
 import cn.huangxulin.site_guide_api.mapper.UserMapper;
 import cn.huangxulin.site_guide_api.service.IUserService;
 import cn.huangxulin.site_guide_api.util.AESUtils;
+import cn.huangxulin.site_guide_api.util.IpUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 功能描述:
@@ -26,9 +31,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     private UserMapper userMapper;
 
-    // 签名密钥和向量
-    private String signKey = AppContext.getAppConfig().getSignatureAesKey();
-    private String signIv = AppContext.getAppConfig().getSignatureAesIv();
+    private AppConfig appConfig = AppContext.getAppConfig();
 
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
@@ -39,7 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public void updateLanIp(String signature, String lanIp) {
         String nickname;
         try {
-            nickname = AESUtils.decrypt(signature, signKey, signIv);
+            nickname = AESUtils.decrypt(signature, appConfig.getSignatureAesKey(), appConfig.getSignatureAesIv());
         } catch (Exception e) {
             throw error(Status.FORBIDDEN.getCode(), "签名错误，拒绝访问");
         }
@@ -54,4 +57,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 更新用户 IP 地址信息
         userMapper.updateById(user);
     }
+
+    @Override
+    public String findUserGroup(String password) {
+        if (appConfig.getAdminGroup().contains(password)) {
+            return Const.UserGroup.ADMIN_GROUP;  // 管理员组用户
+        } else if (appConfig.getUserGroup().contains(password)) {
+            return Const.UserGroup.USER_GROUP;  // 用户组用户
+        }
+        return Const.UserGroup.DEFAULT_GROUP;
+    }
+
+    @Override
+    public String login(String password) {
+        return AppContext.getTokenKit().generateToken(password);
+    }
+
 }
