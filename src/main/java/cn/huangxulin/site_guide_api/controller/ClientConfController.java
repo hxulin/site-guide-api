@@ -33,20 +33,4 @@ public class ClientConfController {
         return ApiResponse.fail();
     }
 
-    /**
-     * 更新客户端配置信息
-     */
-    @PostMapping("/upd")
-    public ApiResponse upd(@RequestBody ClientConf clientConf) {
-        List<ClientConf> list = clientConfService.list();
-        if (list.size() <= 1) {
-            if (list.size() == 1) {
-                clientConf.setId(list.get(0).getId());
-            }
-            if (clientConfService.saveOrUpdate(clientConf)) {
-                return ApiResponse.successOfMessage("配置信息更新成功");
-            }
-        }
-        return ApiResponse.failOfMessage("配置信息更新失败");
-    }
 }
