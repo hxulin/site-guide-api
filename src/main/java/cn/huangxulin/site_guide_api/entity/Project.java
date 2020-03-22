@@ -11,40 +11,50 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 功能描述: 用户实体类
+ * 功能描述: 项目实体类
  *
  * @author hxulin
  */
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@TableName("sg_user")
-public class User extends BaseEntity {
+@TableName("sg_project")
+public class Project extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 昵称
+     * 项目类型枚举, 前端类型
      */
-    private String nickname;
+    public static final int TYPE_FRONT_END = 0;
 
     /**
-     * 下载授权码
+     * 项目类型枚举, 后端类型
      */
-    private String authCode;
+    public static final int TYPE_BACK_END = 1;
 
     /**
-     * 局域网IP
+     * 项目名称
      */
-    private String lanIp;
+    private String name;
 
     /**
-     * IP地址最近一次更新时间
+     * 访问地址
      */
-    private Date lastUpdated;
+    private String entranceUrl;
 
     /**
-     * 状态: 0正常, 1禁用
+     * 项目类型: 0前端项目, 1后端项目
+     */
+    private Integer type;
+
+    /**
+     * 排序号
+     */
+    private Integer sequence;
+
+    /**
+     * 状态: 0正常, 1关闭
      */
     private Integer status;
 
@@ -60,9 +70,4 @@ public class User extends BaseEntity {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
-    public User(String nickname, String authCode, Integer status) {
-        this.nickname = nickname;
-        this.authCode = authCode;
-        this.status = status;
-    }
 }

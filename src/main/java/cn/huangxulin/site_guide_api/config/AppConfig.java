@@ -52,8 +52,4 @@ public class AppConfig {
      */
     private String tokenAesIv;
 
-
-
-    private String loginPasswordSalt = "";
-
 }

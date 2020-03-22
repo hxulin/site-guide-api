@@ -28,7 +28,7 @@ public class ClientKit {
     /**
      * 签名信息的起始位置
      */
-    private static final int SIGNATURE_OFFSET = 16558;
+    private static final int SIGNATURE_OFFSET = 16691;
 
     /**
      * 签名长度

@@ -1,6 +1,10 @@
 package cn.huangxulin.site_guide_api.filter;
 
 import cn.huangxulin.site_guide_api.bean.Const;
+import cn.huangxulin.site_guide_api.bean.Status;
+import cn.huangxulin.site_guide_api.context.TokenKit;
+import cn.huangxulin.site_guide_api.exception.BusinessException;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.*;
@@ -23,11 +27,23 @@ public class TokenFilter extends OncePerRequestFilter {
         String token = req.getHeader(Const.TOKEN_KEY);
         ContextManager.addAttribute(Const.TOKEN_KEY, token);
         try {
-            if (!WHITELIST.contains(req.getRequestURI())) {
-
-
-
+            if (!HttpMethod.OPTIONS.matches(req.getMethod()) && !WHITELIST.contains(req.getRequestURI())) {
+                if (token != null) {
+                    String userGroup = TokenKit.getUserGroupByToken(token);
+                    if (req.getRequestURI().startsWith("/auth/")) {  // 管理员可访问的接口
+                        if (!Const.UserGroup.ADMIN_GROUP.equals(userGroup)) {
+                            throw BusinessException.ofStatus(Status.FORBIDDEN);
+                        }
+                    } else {  // 普通用户可访问的接口
+                        if (!Const.UserGroup.ADMIN_GROUP.equals(userGroup) && !Const.UserGroup.USER_GROUP.equals(userGroup)) {
+                            throw BusinessException.ofStatus(Status.FORBIDDEN);
+                        }
+                    }
+                } else {
+                    throw BusinessException.ofStatus(Status.NOT_LOGIN);
+                }
             }
+            // 所有用户可访问的接口
             chain.doFilter(req, resp);
         } catch (Exception e) {
             throw new RuntimeException(e);

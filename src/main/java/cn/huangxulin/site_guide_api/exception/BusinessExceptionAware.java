@@ -10,14 +10,14 @@ import cn.huangxulin.site_guide_api.bean.Status;
 public interface BusinessExceptionAware {
 
     default BusinessException error(String msg) {
-        return error(Status.INTERNAL_SERVER_ERROR.getCode(), msg);
+        return BusinessException.ofMessage(msg);
     }
 
     default BusinessException error(Status status) {
-        return error(status.getCode(), status.getMsg());
+        return BusinessException.ofStatus(status);
     }
 
     default BusinessException error(int code, String msg) {
-        return new BusinessException(code, msg);
+        return BusinessException.of(code, msg);
     }
 }

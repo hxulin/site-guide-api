@@ -25,20 +25,6 @@ public interface Const {
     }
 
     /**
-     * 日期格式化类型
-     */
-	interface DateFormat {
-
-        String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
-
-        String DATE_PATTERN = "yyyy-MM-dd";
-
-        String TIME_PATTERN = "HH:mm:ss";
-
-        String MINUTE_PATTEN = "yyyy-MM-dd HH:mm";
-	}
-
-    /**
      * 状态
      */
     interface Status {

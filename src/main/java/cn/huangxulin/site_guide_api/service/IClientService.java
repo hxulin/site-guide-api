@@ -1,6 +1,5 @@
 package cn.huangxulin.site_guide_api.service;
 
-
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface IClientService {
 
-
     /**
      * 客户端下载
      *
@@ -19,4 +17,5 @@ public interface IClientService {
      * @param response  响应
      */
     void download(String nickname, String authCode, HttpServletResponse response) throws Exception;
+
 }
