@@ -26,6 +26,12 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
+    @GetMapping("/max_sequence")
+    public ApiResponse getMaxSequence() {
+        int count = projectService.count();
+        return ApiResponse.success().addDataItem("maxSequence", count + 1);
+    }
+
     /**
      * 项目列表查询
      */

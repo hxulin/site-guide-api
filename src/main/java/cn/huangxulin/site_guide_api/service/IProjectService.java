@@ -10,4 +10,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IProjectService extends IService<Project> {
 
+    /**
+     * 新增或修改
+     */
+    void saveOrUpd(Project project);
+
+    /**
+     * 删除
+     */
+    void delete(Project[] projects);
 }
