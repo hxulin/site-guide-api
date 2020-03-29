@@ -4,6 +4,7 @@ import cn.huangxulin.site_guide_api.bean.ApiResponse;
 import cn.huangxulin.site_guide_api.entity.ClientConf;
 import cn.huangxulin.site_guide_api.entity.Project;
 import cn.huangxulin.site_guide_api.service.IClientConfService;
+import cn.huangxulin.site_guide_api.service.IHotPagesService;
 import cn.huangxulin.site_guide_api.service.IProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -24,9 +25,16 @@ import java.util.List;
 @Validated
 public class AdminController {
 
+    private IClientConfService clientConfService;
+
     private IProjectService projectService;
 
-    private IClientConfService clientConfService;
+    private IHotPagesService hotPagesService;
+
+    @Autowired
+    public void setClientConfService(IClientConfService clientConfService) {
+        this.clientConfService = clientConfService;
+    }
 
     @Autowired
     public void setProjectService(IProjectService projectService) {
@@ -34,15 +42,8 @@ public class AdminController {
     }
 
     @Autowired
-    public void setClientConfService(IClientConfService clientConfService) {
-        this.clientConfService = clientConfService;
-    }
-
-    @PostMapping("/project/add")
-    public ApiResponse addProject(@RequestBody Project project) {
-
-        projectService.save(project);
-        return ApiResponse.successOfMessage("新增项目成功");
+    public void setHotPagesService(IHotPagesService hotPagesService) {
+        this.hotPagesService = hotPagesService;
     }
 
     /**
@@ -62,4 +63,10 @@ public class AdminController {
         return ApiResponse.failOfMessage("配置信息更新失败");
     }
 
+    @PostMapping("/project/add")
+    public ApiResponse addProject(@RequestBody Project project) {
+
+        projectService.save(project);
+        return ApiResponse.successOfMessage("新增项目成功");
+    }
 }
