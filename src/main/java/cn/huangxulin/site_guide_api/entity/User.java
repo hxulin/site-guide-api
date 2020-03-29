@@ -60,6 +60,11 @@ public class User extends BaseEntity {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
+    public User(String lanIp, Integer status) {
+        this.lanIp = lanIp;
+        this.status = status;
+    }
+
     public User(String nickname, String authCode, Integer status) {
         this.nickname = nickname;
         this.authCode = authCode;

@@ -4,14 +4,13 @@ import cn.huangxulin.site_guide_api.bean.ApiResponse;
 import cn.huangxulin.site_guide_api.bean.Const;
 import cn.huangxulin.site_guide_api.context.TokenKit;
 import cn.huangxulin.site_guide_api.entity.User;
+import cn.huangxulin.site_guide_api.query.UserQueryObject;
 import cn.huangxulin.site_guide_api.service.IUserService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 功能描述:
@@ -61,12 +60,9 @@ public class UserController {
     /**
      * 查询用户列表信息
      */
-    @GetMapping("/list")
-    public ApiResponse list() {
-        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(User::getId, User::getNickname, User::getLanIp, User::getLastUpdated)
-                .eq(User::getStatus, Const.Status.NORMAL).orderByAsc(User::getCreateTime);
-        List<User> list = userService.list(wrapper);
-        return ApiResponse.successOfData(list);
+    @PostMapping("/list")
+    public ApiResponse listUser(@RequestBody UserQueryObject qo) {
+        Page<User> page = userService.page(qo.getPageInfo(), qo.getWrapper());
+        return ApiResponse.successOfData(page);
     }
 }
