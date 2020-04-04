@@ -25,7 +25,6 @@ public class TokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) {
         String token = req.getHeader(Const.TOKEN_KEY);
-        ContextManager.addAttribute(Const.TOKEN_KEY, token);
         try {
             if (!HttpMethod.OPTIONS.matches(req.getMethod()) && !WHITELIST.contains(req.getRequestURI())) {
                 if (token != null) {
@@ -47,8 +46,6 @@ public class TokenFilter extends OncePerRequestFilter {
             chain.doFilter(req, resp);
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-            ContextManager.removeContext();
         }
     }
 
