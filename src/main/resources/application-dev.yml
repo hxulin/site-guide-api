@@ -23,5 +23,3 @@ app:
     token-aes-key: 9h15t21ngWZ9287V
     # Token AES加密初始向量
     token-aes-iv: vd2J9k857YdJG8HI
-    # 用户删除保护
-    user-deletion-protection: true

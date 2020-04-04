@@ -52,9 +52,4 @@ public class AppConfig {
      */
     private String tokenAesIv;
 
-    /**
-     * 用户删除保护
-     */
-    private boolean userDeletionProtection = true;
-
 }
