@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class TokenFilter extends OncePerRequestFilter {
 
-    private final List<String> WHITELIST = Arrays.asList("/client_conf/get", "/user/upd_ip", "/user/login", "/user/info");
+    private final List<String> WHITELIST = Arrays.asList("/client_conf/get", "/user/upd_ip", "/user/login", "/user/info", "/task/ask");
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) {

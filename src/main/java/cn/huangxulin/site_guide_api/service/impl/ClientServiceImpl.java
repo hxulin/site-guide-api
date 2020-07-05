@@ -42,7 +42,7 @@ public class ClientServiceImpl implements IClientService, BusinessExceptionAware
     }
 
     @Override
-    public void download(String nickname, String authCode, HttpServletResponse response) throws Exception {
+    public void  download(String nickname, String authCode, HttpServletResponse response) throws Exception {
         String signature = AESUtils.encrypt(nickname, appConfig.getSignatureAesKey(), appConfig.getSignatureAesIv());
         /*
          * 数据格式校验: 一个汉字占用两个字符长度

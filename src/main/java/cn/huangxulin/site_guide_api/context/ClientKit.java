@@ -23,12 +23,12 @@ public class ClientKit {
     /**
      * 客户端文件大小
      */
-    private static final int CLIENT_FILE_SIZE = 19456;
+    private static final int CLIENT_FILE_SIZE = 25088;
 
     /**
      * 签名信息的起始位置
      */
-    private static final int SIGNATURE_OFFSET = 16691;
+    private static final int SIGNATURE_OFFSET = 22168;
 
     /**
      * 签名长度

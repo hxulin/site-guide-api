@@ -49,6 +49,11 @@ public class User extends BaseEntity {
     private Integer status;
 
     /**
+     * 任务扫描心跳时间
+     */
+    private Date lastHeartbeat;
+
+    /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * 功能描述:
@@ -31,7 +32,7 @@ public class BaseEntity implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         BaseEntity other = (BaseEntity) obj;
-        return id == null ? other.id == null : id.equals(other.id);
+        return Objects.equals(id, other.id);
     }
 
     @Override

@@ -50,3 +50,30 @@ create table sg_hot_pages
    primary key (id)
 );
 
+create table sg_task
+(
+   id                   	bigint not null comment '主键',
+   uid                    bigint comment '所属用户',
+   name                   varchar(50) comment '任务名称',
+   heartbeat              int comment '心跳时间, 单位: 秒',
+   status                 tinyint comment '状态: 0 运行中, 1 已停止, 2 正在启动, 3 正在关停',
+   remark                 varchar(50) comment '备注',
+   create_time          	datetime comment '创建时间',
+   update_time          	datetime comment '上次修改时间',
+   primary key (id)
+);
+
+create table sg_instruction
+(
+   id                   	bigint not null comment '主键',
+   task_id                 bigint comment '所属任务',
+   `desc`                 varchar(50) comment '指令描述',
+   version                int comment '指令版本',
+   content                varchar(20000) comment '指令内容',
+   status                 tinyint comment '状态: 0 已上线, 1 待上线',
+   update_time          	datetime comment '上次修改时间',
+   primary key (id)
+);
+
+/* 增加任务扫描心跳时间 */
+alter table sg_user add column last_heartbeat datetime comment '任务扫描心跳时间';
